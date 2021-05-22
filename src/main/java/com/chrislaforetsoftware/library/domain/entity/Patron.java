@@ -3,7 +3,7 @@ package com.chrislaforetsoftware.library.domain.entity;
 public interface Patron {
     public enum PatronType {
         REGULAR,
-        RESESRCHER
+        RESEARCHER
     }
 
     String getId();
