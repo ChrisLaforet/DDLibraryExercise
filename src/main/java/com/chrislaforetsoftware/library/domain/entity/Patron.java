@@ -6,6 +6,7 @@ public interface Patron {
         RESESRCHER
     }
 
+    String getId();
     String getName();
     PatronType getPatronType();
 }

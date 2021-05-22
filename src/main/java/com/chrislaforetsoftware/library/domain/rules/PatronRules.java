@@ -1,6 +1,7 @@
 package com.chrislaforetsoftware.library.domain.rules;
 
-import org.springframework.stereotype.Component;
+import com.chrislaforetsoftware.library.domain.entity.Book;
+import com.chrislaforetsoftware.library.domain.entity.Patron;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,5 +11,7 @@ public class PatronRules {
 
     }
 
-    public boolean isPatronAllowedHoldOn(BookInstance desiredBook, Patron patron)
+    public boolean isPatronAllowedHoldOn(Book desiredBook, Patron patron) {
+
+    }
 }
