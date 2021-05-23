@@ -1,13 +1,13 @@
 package com.chrislaforetsoftware.library.domains.catalog.entities;
 
-public interface Book {
+public interface IBook {
 
     public enum AssignedUse {
         CIRCULATING,
         RESTRICTED
     }
 
-    Title getTitle();
+    ITitle getTitle();
     AssignedUse getAssignedUse();
     Double getPrice();
 }

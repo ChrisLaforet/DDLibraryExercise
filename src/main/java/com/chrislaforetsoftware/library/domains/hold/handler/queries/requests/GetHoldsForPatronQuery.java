@@ -1,14 +1,14 @@
 package com.chrislaforetsoftware.library.domains.hold.handler.queries.requests;
 
 import com.chrislaforetsoftware.library.common.cqs.IQuery;
-import com.chrislaforetsoftware.library.domains.patron.entities.Patron;
+import com.chrislaforetsoftware.library.domains.patron.entities.IPatron;
 import lombok.Getter;
 
 @Getter
 public class GetHoldsForPatronQuery implements IQuery {
-    private Patron patron;
+    private IPatron patron;
 
-    public GetHoldsForPatronQuery(Patron patron) {
+    public GetHoldsForPatronQuery(IPatron patron) {
         this.patron = patron;
     }
 }

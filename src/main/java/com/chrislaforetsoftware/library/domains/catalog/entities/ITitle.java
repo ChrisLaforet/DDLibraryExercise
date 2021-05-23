@@ -1,6 +1,6 @@
 package com.chrislaforetsoftware.library.domains.catalog.entities;
 
-public interface Title {
+public interface ITitle {
     String getISBN();
     String getTitle();
 }

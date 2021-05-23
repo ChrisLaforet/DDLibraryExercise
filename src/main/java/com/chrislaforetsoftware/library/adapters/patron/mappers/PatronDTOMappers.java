@@ -1,6 +1,6 @@
 package com.chrislaforetsoftware.library.adapters.patron.mappers;
 
-import com.chrislaforetsoftware.library.domains.patron.entities.Patron;
+import com.chrislaforetsoftware.library.domains.patron.entities.IPatron;
 import com.chrislaforetsoftware.library.io.patron.dtos.PatronResponseDTO;
 
 public class PatronDTOMappers {

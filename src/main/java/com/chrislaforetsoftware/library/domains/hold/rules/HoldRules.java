@@ -1,9 +1,9 @@
 package com.chrislaforetsoftware.library.domains.hold.rules;
 
 import com.chrislaforetsoftware.library.domains.blends.BookWithCheckoutStatus;
-import com.chrislaforetsoftware.library.domains.catalog.entities.Book;
-import com.chrislaforetsoftware.library.domains.hold.entities.Hold;
-import com.chrislaforetsoftware.library.domains.patron.entities.Patron;
+import com.chrislaforetsoftware.library.domains.catalog.entities.IBook;
+import com.chrislaforetsoftware.library.domains.hold.entities.IHold;
+import com.chrislaforetsoftware.library.domains.patron.entities.IPatron;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 public class HoldRules {
 
     public boolean isHoldPermittedFor(List<BookWithCheckoutStatus> books,
-                                      Patron patron,
-                                      List<Hold> currentHoldsOnTitle) {
+                                      IPatron patron,
+                                      List<IHold> currentHoldsOnTitle) {
         if (books.isEmpty()) {
             return false;
         }
@@ -26,12 +26,12 @@ public class HoldRules {
             return false;
         }
 
-        if (patron.getPatronType().equals(Patron.PatronType.RESEARCHER)) {
+        if (patron.getPatronType().equals(IPatron.PatronType.RESEARCHER)) {
             return available.size() > currentHoldsOnTitle.size();
         }
 
         return available.stream()
-                    .filter(book -> book.getBook().getAssignedUse().equals(Book.AssignedUse.CIRCULATING))
+                    .filter(book -> book.getBook().getAssignedUse().equals(IBook.AssignedUse.CIRCULATING))
                     .count() > currentHoldsOnTitle.size();
     }
 }

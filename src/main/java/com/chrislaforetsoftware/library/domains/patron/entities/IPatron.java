@@ -1,6 +1,6 @@
 package com.chrislaforetsoftware.library.domains.patron.entities;
 
-public interface Patron {
+public interface IPatron {
     public enum PatronType {
         REGULAR,
         RESEARCHER
