@@ -7,11 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Patron implements IPatron {
-	private int id;
+	private String id;
 	private String name;
 	private IPatron.PatronType patronType;
 
-	public Patron(int id, String name, IPatron.PatronType patronType) {
+	public Patron(String id, String name, IPatron.PatronType patronType) {
 		this.id = id;
 		this.name = name;
 		this.patronType = patronType;

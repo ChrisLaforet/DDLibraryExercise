@@ -19,11 +19,12 @@ public class PatronController {
 
 	@GetMapping("/allPatrons")
 	public List<PatronResponseDTO> getAllPatrons() {
-
+return null;
 	}
 
 	@PutMapping("/addPatron")
 	public PatronResponseDTO addPatron(
 			@RequestBody AddPatronRequestDTO addPatronDTO) {
+return null;
 	}
 }

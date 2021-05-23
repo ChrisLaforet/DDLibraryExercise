@@ -48,7 +48,7 @@ public class PatronRepository implements IPatronRepository {
     }
 
     private Patron createPatronFromRecord(com.chrislaforetsoftware.library.io.patron.entity.Patron patron) {
-        return new Patron(patron.getId(),
+        return new Patron(Integer.toString(patron.getId()),
                 patron.getName(),
                 patron.isResearcher() ? IPatron.PatronType.RESEARCHER : IPatron.PatronType.NONRESEARCHER);
     }
