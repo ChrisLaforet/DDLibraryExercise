@@ -1,20 +1,20 @@
 package com.chrislaforetsoftware.library.domain.handler.commands;
 
 import com.chrislaforetsoftware.library.common.cqs.ICommandHandler;
-import com.chrislaforetsoftware.library.domain.handler.commands.requests.AddTitleToCatalogCommand;
+import com.chrislaforetsoftware.library.domain.handler.commands.requests.CheckInBookCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AddTitleToCatalogCommandHandler implements ICommandHandler<AddTitleToCatalogCommand, Void> {
+public class CheckInBookCommandHandler implements ICommandHandler<CheckInBookCommand, Boolean> {
 
     @Autowired
-    public AddTitleToCatalogCommandHandler() {
+    public CheckInBookCommandHandler() {
 
     }
 
     @Override
-    public Void handle(AddTitleToCatalogCommand command) {
+    public Boolean handle(CheckInBookCommand command) {
         return null;
     }
 }
