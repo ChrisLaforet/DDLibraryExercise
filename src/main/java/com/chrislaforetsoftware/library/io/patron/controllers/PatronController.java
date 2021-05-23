@@ -1,8 +1,11 @@
 package com.chrislaforetsoftware.library.io.patron.controllers;
 
+import com.chrislaforetsoftware.library.io.patron.dtos.AddPatronRequestDTO;
 import com.chrislaforetsoftware.library.io.patron.dtos.PatronResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
