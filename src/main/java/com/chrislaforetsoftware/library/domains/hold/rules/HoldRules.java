@@ -1,4 +1,4 @@
-package com.chrislaforetsoftware.library.domains.rules;
+package com.chrislaforetsoftware.library.domains.hold.rules;
 
 import com.chrislaforetsoftware.library.domains.blends.BookWithCheckoutStatus;
 import com.chrislaforetsoftware.library.domains.catalog.entities.Book;

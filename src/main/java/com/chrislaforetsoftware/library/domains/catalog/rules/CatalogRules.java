@@ -1,4 +1,4 @@
-package com.chrislaforetsoftware.library.domains.rules;
+package com.chrislaforetsoftware.library.domains.catalog.rules;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

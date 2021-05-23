@@ -1,4 +1,4 @@
-package com.chrislaforetsoftware.library.domains.rules;
+package com.chrislaforetsoftware.library.domains.patron.rules;
 
 import com.chrislaforetsoftware.library.domains.catalog.entities.Book;
 import com.chrislaforetsoftware.library.domains.checkout.entities.Checkout;
