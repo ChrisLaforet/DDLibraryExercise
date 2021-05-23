@@ -1,4 +1,4 @@
-package com.chrislaforetsoftware.library.domain.entity;
+package com.chrislaforetsoftware.library.domain.entities;
 
 public interface Title {
     String getISBN();

@@ -1,9 +1,9 @@
 package com.chrislaforetsoftware.library.domain.rules;
 
-import com.chrislaforetsoftware.library.domain.entity.Book;
-import com.chrislaforetsoftware.library.domain.entity.Checkout;
-import com.chrislaforetsoftware.library.domain.entity.Hold;
-import com.chrislaforetsoftware.library.domain.entity.Patron;
+import com.chrislaforetsoftware.library.domain.entities.Book;
+import com.chrislaforetsoftware.library.domain.entities.Checkout;
+import com.chrislaforetsoftware.library.domain.entities.Hold;
+import com.chrislaforetsoftware.library.domain.entities.Patron;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class PatronRules {
             return false;
         }
         if (currentCheckoutsForPatron.stream()
-                .filter()
+                .filter(Checkout::isOverdue)
                 .count() >= 2) {
             return false;
         }

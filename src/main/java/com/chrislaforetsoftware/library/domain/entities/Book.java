@@ -1,4 +1,4 @@
-package com.chrislaforetsoftware.library.domain.entity;
+package com.chrislaforetsoftware.library.domain.entities;
 
 public interface Book {
 
@@ -9,4 +9,5 @@ public interface Book {
 
     Title getTitle();
     AssignedUse getAssignedUse();
+    Double getPrice();
 }

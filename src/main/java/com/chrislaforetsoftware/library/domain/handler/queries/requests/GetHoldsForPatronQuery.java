@@ -1,7 +1,7 @@
 package com.chrislaforetsoftware.library.domain.handler.queries.requests;
 
 import com.chrislaforetsoftware.library.common.cqs.IQuery;
-import com.chrislaforetsoftware.library.domain.entity.Patron;
+import com.chrislaforetsoftware.library.domain.entities.Patron;
 import lombok.Getter;
 
 @Getter
