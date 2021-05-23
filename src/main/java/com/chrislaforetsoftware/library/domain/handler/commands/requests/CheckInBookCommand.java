@@ -2,7 +2,9 @@ package com.chrislaforetsoftware.library.domain.handler.commands.requests;
 
 import com.chrislaforetsoftware.library.common.cqs.ICommand;
 import com.chrislaforetsoftware.library.domain.entities.Checkout;
+import lombok.Getter;
 
+@Getter
 public class CheckInBookCommand implements ICommand {
     private final Checkout checkout;
 
