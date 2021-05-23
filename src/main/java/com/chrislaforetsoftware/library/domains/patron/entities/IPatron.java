@@ -2,7 +2,7 @@ package com.chrislaforetsoftware.library.domains.patron.entities;
 
 public interface IPatron {
     public enum PatronType {
-        REGULAR,
+		NONRESEARCHER,
         RESEARCHER
     }
 

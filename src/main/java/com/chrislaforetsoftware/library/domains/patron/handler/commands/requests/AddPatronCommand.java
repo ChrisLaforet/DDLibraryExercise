@@ -6,9 +6,11 @@ import lombok.Getter;
 
 @Getter
 public class AddPatronCommand implements ICommand {
-    private final IPatron patron;
+    private final String name;
+    private final boolean researcher;
 
-    public AddPatronCommand(final IPatron patron) {
-        this.patron = patron;
+    public AddPatronCommand(String name, boolean isResearcher) {
+        this.name = name;
+        this.researcher = isResearcher;
     }
 }

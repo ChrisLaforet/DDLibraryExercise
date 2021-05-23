@@ -2,12 +2,13 @@ DROP TABLE IF EXISTS patron;
 
 CREATE TABLE patron(
     id INT AUTO_INCREMENT PRIMARY_KEY,
-    name VARCHAR(100) NOT NULL
+    name VARCHAR(100) NOT NULL,
+    isResearcher BOOLEAN NOT NULL
 );
 
-INSERT INTO patron (name) VALUES
-    ('John Doe'),
-    ('Joan Researcher');
+INSERT INTO patron (name, isResearcher) VALUES
+    ('John Doe', 0),
+    ('Joan Researcher', 1);
 
 
 DROP TABLE IF EXISTS catalog;
