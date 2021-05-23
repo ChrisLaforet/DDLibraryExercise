@@ -1,5 +1,8 @@
 package com.chrislaforetsoftware.library.io.patron.controllers;
 
+import com.chrislaforetsoftware.library.common.cqs.ICommandHandler;
+import com.chrislaforetsoftware.library.domains.patron.entities.IPatron;
+import com.chrislaforetsoftware.library.domains.patron.handler.commands.requests.AddPatronCommand;
 import com.chrislaforetsoftware.library.io.patron.dtos.AddPatronRequestDTO;
 import com.chrislaforetsoftware.library.io.patron.dtos.PatronResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +15,11 @@ import java.util.List;
 @RequestMapping("/patron")
 public class PatronController {
 
-	@Autowired
-	public PatronController() {
+	private final ICommandHandler<AddPatronCommand, IPatron> addPatronCommandHandler;
 
+	@Autowired
+	public PatronController(ICommandHandler<AddPatronCommand, IPatron> addPatronCommandHandler) {
+		this.addPatronCommandHandler = addPatronCommandHandler;
 	}
 
 	@GetMapping("/allPatrons")
