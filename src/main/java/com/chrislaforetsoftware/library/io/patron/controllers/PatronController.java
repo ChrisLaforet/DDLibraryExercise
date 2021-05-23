@@ -1,6 +1,6 @@
-package com.chrislaforetsoftware.library.io.patrons.controllers;
+package com.chrislaforetsoftware.library.io.patron.controllers;
 
-import com.chrislaforetsoftware.library.io.patrons.dtos.PatronResponseDTO;
+import com.chrislaforetsoftware.library.io.patron.dtos.PatronResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

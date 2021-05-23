@@ -1,0 +1,1 @@
+This is the use-case layer with the business interface between io and the domains (via adapters)

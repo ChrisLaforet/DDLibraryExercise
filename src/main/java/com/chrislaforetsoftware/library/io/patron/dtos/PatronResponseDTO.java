@@ -1,4 +1,4 @@
-package com.chrislaforetsoftware.library.io.patrons.dtos;
+package com.chrislaforetsoftware.library.io.patron.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
