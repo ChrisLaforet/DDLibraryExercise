@@ -1,11 +1,8 @@
-package com.chrislaforetsoftware.library.domain.handler.commands;
+package com.chrislaforetsoftware.library.domains.patron.handler.commands;
 
 import com.chrislaforetsoftware.library.common.cqs.ICommandHandler;
-import com.chrislaforetsoftware.library.domain.handler.commands.requests.AddHoldCommand;
-import com.chrislaforetsoftware.library.domain.handler.commands.requests.AddPatronCommand;
-import com.chrislaforetsoftware.library.domain.handler.events.HoldCreated;
+import com.chrislaforetsoftware.library.domains.patron.handler.commands.requests.AddPatronCommand;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 @Service

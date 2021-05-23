@@ -1,4 +1,4 @@
-package com.chrislaforetsoftware.library.domain.handler.queries.requests;
+package com.chrislaforetsoftware.library.domains.patron.handler.queries.requests;
 
 import com.chrislaforetsoftware.library.common.cqs.IQuery;
 import lombok.Getter;

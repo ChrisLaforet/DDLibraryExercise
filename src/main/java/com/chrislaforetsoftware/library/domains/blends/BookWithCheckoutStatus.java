@@ -13,7 +13,7 @@ public class BookWithCheckoutStatus {
 
     public BookWithCheckoutStatus(final Book book) {
         this.book = book;
-        this.checkout = Optional.empty());
+        this.checkout = Optional.empty();
     }
 
     public BookWithCheckoutStatus(final Book book, final Checkout checkout) {

@@ -1,7 +1,7 @@
-package com.chrislaforetsoftware.library.domain.handler.commands.requests;
+package com.chrislaforetsoftware.library.domains.patron.handler.commands.requests;
 
 import com.chrislaforetsoftware.library.common.cqs.ICommand;
-import com.chrislaforetsoftware.library.domain.entities.Patron;
+import com.chrislaforetsoftware.library.domains.patron.entities.Patron;
 import lombok.Getter;
 
 @Getter
