@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface PatronRepository extends CrudRepository<Patron, Integer> {
+public interface PatronJpaRepository extends CrudRepository<Patron, Integer> {
 
 	List<Patron> findByName(String name);
 }

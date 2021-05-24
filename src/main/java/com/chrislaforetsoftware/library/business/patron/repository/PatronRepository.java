@@ -3,6 +3,7 @@ package com.chrislaforetsoftware.library.business.patron.repository;
 import com.chrislaforetsoftware.library.business.patron.entities.Patron;
 import com.chrislaforetsoftware.library.domains.patron.entities.IPatron;
 import com.chrislaforetsoftware.library.domains.patron.repository.IPatronRepository;
+import com.chrislaforetsoftware.library.io.patron.repository.PatronJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,11 +15,11 @@ import java.util.stream.StreamSupport;
 @Repository
 public class PatronRepository implements IPatronRepository {
 
-    private final com.chrislaforetsoftware.library.io.patron.repository.PatronRepository repository;
+    private final PatronJpaRepository repository;
 
     @Autowired
     public PatronRepository(
-            com.chrislaforetsoftware.library.io.patron.repository.PatronRepository repository) {
+            PatronJpaRepository repository) {
         this.repository = repository;
     }
 

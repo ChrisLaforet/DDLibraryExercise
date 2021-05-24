@@ -8,4 +8,5 @@ import lombok.Setter;
 public class PatronResponseDTO {
 	private String id;
 	private String name;
+	private boolean researcher;
 }
