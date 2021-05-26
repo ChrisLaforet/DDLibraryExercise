@@ -18,13 +18,12 @@ import static org.junit.Assert.*;
 public class AddPatronCommandHandlerTest {
 
 	public static final String JOHN_DOE = "John Doe";
+
 	@InjectMocks
 	private AddPatronCommandHandler sut;
 
 	@Mock
 	private IPatronRepository repository;
-
-//	private final AddPatronCommandHandler sut = new AddPatronCommandHandler(repository);
 
 	@Test(expected = IllegalStateException.class)
 	public void givenAddPatronCommandHandler_whenAddingWithNullName_thenThrowsException() {

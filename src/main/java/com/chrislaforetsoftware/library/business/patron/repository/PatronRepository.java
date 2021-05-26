@@ -23,6 +23,7 @@ public class PatronRepository implements IPatronRepository {
         this.repository = repository;
     }
 
+    @Override
     public IPatron addPatron(String name, boolean isResearcher) {
         com.chrislaforetsoftware.library.io.patron.entity.Patron patron =
                 new com.chrislaforetsoftware.library.io.patron.entity.Patron();
@@ -32,16 +33,19 @@ public class PatronRepository implements IPatronRepository {
         return createPatronFromRecord(patron);
     }
 
+    @Override
     public Optional<IPatron> findPatronById(String id) {
         return repository.findById(Integer.valueOf(id)).map(this::createPatronFromRecord);
     }
 
+    @Override
     public List<IPatron> findPatronsByName(String name) {
         return repository.findByName(name).stream()
                 .map(this::createPatronFromRecord)
                 .collect(Collectors.toList());
     }
 
+    @Override
     public List<IPatron> findAllPatrons() {
         return StreamSupport.stream(repository.findAll().spliterator(), false)
                 .map(this::createPatronFromRecord)
