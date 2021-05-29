@@ -7,6 +7,13 @@ import org.springframework.stereotype.Service;
 public class CatalogRules {
 
     public boolean isBookEligibleForAdding(String ISBN, String title, Double price) {
-        return StringUtils.isNotBlank(ISBN) && StringUtils.isNotBlank(title) && price != null;
+        return StringUtils.isNotBlank(ISBN) &&
+                StringUtils.isNotBlank(title) && price != null;
+    }
+
+    public boolean isTitleEligibleForAdding(String ISBN, String title, String author) {
+        return StringUtils.isNotBlank(ISBN) &&
+                StringUtils.isNotBlank(title) &&
+                StringUtils.isNotBlank(author);
     }
 }

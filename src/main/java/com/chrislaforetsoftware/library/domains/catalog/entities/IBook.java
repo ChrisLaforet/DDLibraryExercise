@@ -9,5 +9,5 @@ public interface IBook {
 
     ITitle getTitle();
     AssignedUse getAssignedUse();
-    Double getPrice();
+    double getPrice();
 }
