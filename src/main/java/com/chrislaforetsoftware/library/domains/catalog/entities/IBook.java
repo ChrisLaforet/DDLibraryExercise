@@ -7,7 +7,8 @@ public interface IBook {
         RESTRICTED
     }
 
-    ITitle getTitle();
+    int getId();
+    ITitle getTitleInstance();
     AssignedUse getAssignedUse();
     double getPrice();
 }

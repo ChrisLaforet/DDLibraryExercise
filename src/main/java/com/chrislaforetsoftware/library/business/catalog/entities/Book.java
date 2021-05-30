@@ -7,21 +7,21 @@ import lombok.Setter;
 
 @Getter
 public class Book implements IBook {
-	private final ITitle title;
+	private final ITitle titleInstance;
 	private final double price;
 	private final IBook.AssignedUse assignedUse;
 
 	@Setter
 	private int id;
 
-	public Book(ITitle title, double price, IBook.AssignedUse assignedUse) {
-		this.title = title;
+	public Book(ITitle titleInstance, double price, IBook.AssignedUse assignedUse) {
+		this.titleInstance = titleInstance;
 		this.price = price;
 		this.assignedUse = assignedUse;
 	}
 
-	public Book(int id, ITitle title, double price, IBook.AssignedUse assignedUse) {
-		this(title, price, assignedUse);
+	public Book(int id, ITitle titleInstance, double price, IBook.AssignedUse assignedUse) {
+		this(titleInstance, price, assignedUse);
 		this.id = id;
 	}
 }

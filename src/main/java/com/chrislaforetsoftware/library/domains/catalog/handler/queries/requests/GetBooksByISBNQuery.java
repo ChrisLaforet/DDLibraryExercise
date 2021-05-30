@@ -5,9 +5,9 @@ import lombok.Getter;
 
 @Getter
 public class GetBooksByISBNQuery implements IQuery {
-    private final String id;
+    private final String isbn;
 
-    public GetBooksByISBNQuery(String id) {
-        this.id = id;
+    public GetBooksByISBNQuery(String isbn) {
+        this.isbn = isbn;
     }
 }

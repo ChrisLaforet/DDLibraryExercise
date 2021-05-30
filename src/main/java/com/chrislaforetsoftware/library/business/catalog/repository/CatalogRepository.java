@@ -30,10 +30,10 @@ public class CatalogRepository implements ICatalogRepository {
 	}
 
 	@Override
-	public ICatalog addTitleToCatalog(String ISBN, String title, String author) {
+	public ICatalog addTitleToCatalog(String isbn, String title, String author) {
 		com.chrislaforetsoftware.library.io.catalog.entities.Catalog dbCatalog =
 				new com.chrislaforetsoftware.library.io.catalog.entities.Catalog();
-		dbCatalog.setIsbn(ISBN);
+		dbCatalog.setIsbn(isbn);
 		dbCatalog.setTitle(title);
 		dbCatalog.setAuthor(author);
 		catalogRepository.save(dbCatalog);
@@ -46,14 +46,14 @@ public class CatalogRepository implements ICatalogRepository {
 	}
 
 	@Override
-	public Optional<ICatalog> findTitleByISBN(String ISBN) {
+	public Optional<ICatalog> findTitleByISBN(String isbn) {
 		Optional<com.chrislaforetsoftware.library.io.catalog.entities.Catalog> dbCatalog =
-				catalogRepository.findById(ISBN);
+				catalogRepository.findById(isbn);
 		if (!dbCatalog.isPresent()) {
 			return Optional.empty();
 		}
 
-		List<com.chrislaforetsoftware.library.io.catalog.entities.Book> dbBooks = bookRepository.findByIsbn(ISBN);
+		List<com.chrislaforetsoftware.library.io.catalog.entities.Book> dbBooks = bookRepository.findByIsbn(isbn);
 		return Optional.of(convertDbCatalog(dbCatalog.get(), dbBooks));
 	}
 
@@ -70,16 +70,36 @@ public class CatalogRepository implements ICatalogRepository {
 
 	@Override
 	public List<ICatalog> findAllTitles() {
+		// not implemented yet
 		return null;
 	}
 
 	@Override
-	public IBook addBookToCatalog(String ISBN, double price, IBook.AssignedUse assignedUse) {
-		return null;
+	public IBook addBookToCatalog(String isbn, double price, IBook.AssignedUse assignedUse) {
+		com.chrislaforetsoftware.library.io.catalog.entities.Catalog dbCatalog =
+				catalogRepository.findById(isbn).orElseThrow(() -> new IllegalStateException("ISBN for new book instance cannot be found in catalog"));
+		Title title = new Title(dbCatalog.getIsbn(), dbCatalog.getTitle(), dbCatalog.getAuthor());
+
+		com.chrislaforetsoftware.library.io.catalog.entities.Book newBook =
+				new com.chrislaforetsoftware.library.io.catalog.entities.Book();
+		newBook.setIsbn(isbn);
+		newBook.setPrice(price);
+		newBook.setRestricted(assignedUse.equals(IBook.AssignedUse.RESTRICTED));
+		bookRepository.save(newBook);
+
+		return convertDbBook(newBook, title);
 	}
 
 	@Override
-	public List<IBook> findBooksByISBN(String ISBN) {
-		return null;
+	public List<IBook> findBooksByISBN(String isbn) {
+		Optional<com.chrislaforetsoftware.library.io.catalog.entities.Catalog> dbCatalog =
+				catalogRepository.findById(isbn);
+		if (!dbCatalog.isPresent()) {
+			return new ArrayList<>();
+		}
+		Title title = new Title(dbCatalog.get().getIsbn(), dbCatalog.get().getTitle(), dbCatalog.get().getAuthor());
+
+		List<com.chrislaforetsoftware.library.io.catalog.entities.Book> dbBooks = bookRepository.findByIsbn(isbn);
+		return dbBooks.stream().map(dbBook -> convertDbBook(dbBook, title)).collect(Collectors.toList());
 	}
 }

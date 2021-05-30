@@ -1,28 +1,44 @@
 package com.chrislaforetsoftware.library.domains.catalog.handler.commands;
 
 import com.chrislaforetsoftware.library.common.cqs.ICommandHandler;
+import com.chrislaforetsoftware.library.domains.catalog.entities.IBook;
 import com.chrislaforetsoftware.library.domains.catalog.handler.commands.requests.AddBookCommand;
+import com.chrislaforetsoftware.library.domains.catalog.repository.ICatalogRepository;
+import com.chrislaforetsoftware.library.domains.catalog.rules.CatalogRules;
 import com.chrislaforetsoftware.library.domains.checkout.events.BookCheckedIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AddBookCommandHandler implements ICommandHandler<AddBookCommand, Boolean> {
+public class AddBookCommandHandler implements ICommandHandler<AddBookCommand, IBook> {
 
+    private final ICatalogRepository repository;
+    private final CatalogRules rules;
     private final ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
-    public AddBookCommandHandler(ApplicationEventPublisher applicationEventPublisher) {
+    public AddBookCommandHandler(ICatalogRepository repository,
+                                 CatalogRules rules,
+                                 ApplicationEventPublisher applicationEventPublisher) {
+        this.repository = repository;
+        this.rules = rules;
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @Override
-    public Boolean handle(AddBookCommand command) {
+    public IBook handle(AddBookCommand command) {
 
-        if (true) {
-            applicationEventPublisher.publishEvent(new BookCheckedIn(this, command.getBook()));
+        if (!rules.isBookEligibleForAdding(command.getBook().getTitleInstance().getISBN(),
+                command.getBook().getTitleInstance().getTitle(),
+                command.getBook().getPrice())) {
+            throw new IllegalStateException("Cannot add new book instance to catalog - missing key information");
         }
-        return null;
+
+        IBook newBook = repository.addBookToCatalog(command.getBook().getTitleInstance().getISBN(),
+                command.getBook().getPrice(),
+                command.getBook().getAssignedUse());
+        applicationEventPublisher.publishEvent(new BookCheckedIn(this, newBook));
+        return newBook;
     }
 }
