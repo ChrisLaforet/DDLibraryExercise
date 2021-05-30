@@ -7,20 +7,19 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Getter
 public class Catalog implements ICatalog {
 
-	private final ITitle title;
+	private final ITitle titleInstance;
 	private final Collection<IBook> instances = new ArrayList<>();
 
-	public Catalog(ITitle title) {
-		this.title = title;
+	public Catalog(ITitle titleInstance) {
+		this.titleInstance = titleInstance;
 	}
 
-	public Catalog(ITitle title, Collection<IBook> instances) {
-		this(title);
+	public Catalog(ITitle titleInstance, Collection<IBook> instances) {
+		this(titleInstance);
 		this.instances.addAll(instances);
 	}
 }
