@@ -1,6 +1,7 @@
 package com.chrislaforetsoftware.library.domains.checkout.handler.commands.requests;
 
 import com.chrislaforetsoftware.library.common.cqs.ICommand;
+import lombok.Getter;
 
 @Getter
 public class CheckOutBookCommand implements ICommand {
