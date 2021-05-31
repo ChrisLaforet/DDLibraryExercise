@@ -20,7 +20,7 @@ public class CheckoutProxy {
 
     }
 
-    public List<CheckoutResponseDTO> getCheckoutsForBooksByISBN(String isbn) {
+    public List<CheckoutResponseDTO> getCheckoutForBooksByISBN(String isbn) {
 
     }
 

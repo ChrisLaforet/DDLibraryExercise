@@ -1,5 +1,6 @@
 package com.chrislaforetsoftware.library.io.checkout.controllers;
 
+import com.chrislaforetsoftware.library.business.checkout.proxy.CheckoutProxy;
 import com.chrislaforetsoftware.library.io.checkout.dto.AddCheckoutRequestDTO;
 import com.chrislaforetsoftware.library.io.checkout.dto.CheckoutResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
