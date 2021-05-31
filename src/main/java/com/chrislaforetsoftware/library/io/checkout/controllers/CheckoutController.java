@@ -1,7 +1,5 @@
 package com.chrislaforetsoftware.library.io.checkout.controllers;
 
-import com.chrislaforetsoftware.library.io.catalog.dtos.AddBookRequestDTO;
-import com.chrislaforetsoftware.library.io.catalog.dtos.BookResponseDTO;
 import com.chrislaforetsoftware.library.io.checkout.dto.AddCheckoutRequestDTO;
 import com.chrislaforetsoftware.library.io.checkout.dto.CheckoutResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
