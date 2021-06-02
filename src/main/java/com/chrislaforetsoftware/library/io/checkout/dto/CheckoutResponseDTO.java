@@ -2,9 +2,11 @@ package com.chrislaforetsoftware.library.io.checkout.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Setter;
 
 import java.util.Date;
 
+@Setter
 public class CheckoutResponseDTO {
 
     private int id;
@@ -18,4 +20,7 @@ public class CheckoutResponseDTO {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date checkedOut;
+
+    @JsonAlias({"isOverdue"})
+    private boolean overdue;
 }
