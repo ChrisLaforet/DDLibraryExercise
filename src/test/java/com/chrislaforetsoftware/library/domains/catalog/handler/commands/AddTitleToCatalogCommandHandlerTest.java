@@ -22,9 +22,9 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(MockitoJUnitRunner.class)
 public class AddTitleToCatalogCommandHandlerTest {
 
-    public static final String ISBN = "1234";
-    public static final String TITLE = "Title";
-    public static final String AUTHOR = "Author";
+    private static final String ISBN = "1234";
+    private static final String TITLE = "Title";
+    private static final String AUTHOR = "Author";
 
     @InjectMocks
     private AddTitleToCatalogCommandHandler sut;

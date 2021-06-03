@@ -24,7 +24,7 @@ public class CheckoutProxy {
     private final ICommandHandler<CheckOutBookCommand, ICheckout> checkOutBookCommandHandler;
     private final IQueryHandler<GetBooksForPatronQuery, List<ICheckout>> getBooksForPatronQueryHandler;
     private final IQueryHandler<GetCheckoutsForISBNQuery, List<ICheckout>> getCheckoutsForISBNQueryHandler;
-    private final IQueryHandler<GetCheckoutForBookQuery, Optional<ICheckout>> getCheckoutForBookQueryHandler);
+    private final IQueryHandler<GetCheckoutForBookQuery, Optional<ICheckout>> getCheckoutForBookQueryHandler;
 
     @Autowired
     public CheckoutProxy(
@@ -49,15 +49,15 @@ public class CheckoutProxy {
     }
 
     public List<CheckoutResponseDTO> getCheckoutForBooksByISBN(String isbn) {
-
+return null;
     }
 
     public List<CheckoutResponseDTO> getCheckoutsForPatronById(int id) {
-
+return null;
     }
 
     public CheckoutResponseDTO addCheckoutForBook(AddCheckoutRequestDTO request) {
-
+return null;
     }
 
     public void deleteCheckout(int id) {

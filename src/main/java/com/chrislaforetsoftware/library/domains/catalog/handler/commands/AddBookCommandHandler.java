@@ -28,17 +28,33 @@ public class AddBookCommandHandler implements ICommandHandler<AddBookCommand, IB
 
     @Override
     public IBook handle(AddBookCommand command) {
-
-        if (!rules.isBookEligibleForAdding(command.getBook().getTitleInstance().getISBN(),
-                command.getBook().getTitleInstance().getTitle(),
-                command.getBook().getPrice())) {
-            throw new IllegalStateException("Cannot add new book instance to catalog - missing key information");
-        }
+        assertTitleIsValid(command);
+        assertBookPropertiesAreValid(command);
 
         IBook newBook = repository.addBookToCatalog(command.getBook().getTitleInstance().getISBN(),
                 command.getBook().getPrice(),
                 command.getBook().getAssignedUse());
         applicationEventPublisher.publishEvent(new BookCheckedIn(this, newBook));
         return newBook;
+    }
+
+    private void assertTitleIsValid(AddBookCommand command) {
+        if (command.getBook().getTitleInstance() == null) {
+            throw new IllegalStateException("Cannot add new book instance to catalog - missing title");
+        }
+
+        repository.findTitleByISBN(command.getBook().getTitleInstance().getISBN())
+                .orElseThrow(() -> new IllegalStateException("Cannot add new book instance to catalog - ISBN not found"));
+    }
+
+    private void assertBookPropertiesAreValid(AddBookCommand command) {
+        if (command.getBook().getTitleInstance() == null) {
+            throw new IllegalStateException("Cannot add new book instance to catalog - missing title");
+        }
+        if (!rules.isBookEligibleForAdding(command.getBook().getTitleInstance().getISBN(),
+                command.getBook().getTitleInstance().getTitle(),
+                command.getBook().getPrice())) {
+            throw new IllegalStateException("Cannot add new book instance to catalog - missing key information");
+        }
     }
 }

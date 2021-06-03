@@ -24,11 +24,11 @@ public class AddTitleToCatalogCommandHandler implements ICommandHandler<AddTitle
 
     @Override
     public ICatalog handle(AddTitleToCatalogCommand command) {
-        assertTitleIsValid(command);
+        assertTitlePropertiesAreValid(command);
         return repository.addTitleToCatalog(command.getISBN(), command.getTitle(), command.getAuthor());
     }
 
-    private void assertTitleIsValid(AddTitleToCatalogCommand command) {
+    private void assertTitlePropertiesAreValid(AddTitleToCatalogCommand command) {
         if (!catalogRules.isTitleEligibleForAdding(command.getISBN(), command.getTitle(), command.getAuthor())) {
             throw new IllegalStateException("Title must have ISBN, title, and author");
         }
