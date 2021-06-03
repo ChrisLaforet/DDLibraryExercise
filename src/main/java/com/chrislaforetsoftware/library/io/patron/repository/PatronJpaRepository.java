@@ -1,6 +1,6 @@
 package com.chrislaforetsoftware.library.io.patron.repository;
 
-import com.chrislaforetsoftware.library.io.patron.entity.Patron;
+import com.chrislaforetsoftware.library.io.patron.entities.Patron;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

@@ -25,8 +25,8 @@ public class PatronRepository implements IPatronRepository {
 
     @Override
     public IPatron addPatron(String name, boolean isResearcher) {
-        com.chrislaforetsoftware.library.io.patron.entity.Patron patron =
-                new com.chrislaforetsoftware.library.io.patron.entity.Patron();
+        com.chrislaforetsoftware.library.io.patron.entities.Patron patron =
+                new com.chrislaforetsoftware.library.io.patron.entities.Patron();
         patron.setName(patron.getName());
         patron.setResearcher(isResearcher);
         repository.save(patron);
@@ -52,7 +52,7 @@ public class PatronRepository implements IPatronRepository {
                 .collect(Collectors.toList());
     }
 
-    private Patron createPatronFromRecord(com.chrislaforetsoftware.library.io.patron.entity.Patron patron) {
+    private Patron createPatronFromRecord(com.chrislaforetsoftware.library.io.patron.entities.Patron patron) {
         return new Patron(Integer.toString(patron.getId()),
                 patron.getName(),
                 patron.isResearcher() ? IPatron.PatronType.RESEARCHER : IPatron.PatronType.NONRESEARCHER);

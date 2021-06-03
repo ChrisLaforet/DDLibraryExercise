@@ -1,4 +1,4 @@
-package com.chrislaforetsoftware.library.io.patron.entity;
+package com.chrislaforetsoftware.library.io.patron.entities;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
