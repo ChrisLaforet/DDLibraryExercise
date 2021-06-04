@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,9 +47,7 @@ public class CheckoutRepository implements ICheckoutRepository {
                 .forEach(book -> {
                     Optional<com.chrislaforetsoftware.library.io.checkout.entities.Checkout> checkout =
                                         repository.findByBookId(book.getId());
-                    if (checkout.isPresent()) {
-                        list.add(convertDbCheckout(checkout.get()));
-                    }
+                    checkout.ifPresent(value -> list.add(convertDbCheckout(value)));
                 });
         return list;
     }
@@ -69,16 +68,34 @@ public class CheckoutRepository implements ICheckoutRepository {
 
     @Override
     public List<ICheckout> getCheckoutsForPatron(IPatron patron) {
-        return null;
+        final List<ICheckout> list = new ArrayList<>();
+        repository.findByPatronId(Integer.getInteger(patron.getId())).forEach(value -> list.add(convertDbCheckout(value)));
+        return list;
     }
 
     @Override
     public ICheckout checkoutBook(IBook book, IPatron patron) {
-        return null;
+        if (repository.findByBookId(book.getId()).isPresent()) {
+            throw new IllegalStateException("Book is already checked out");
+        }
+
+        com.chrislaforetsoftware.library.io.checkout.entities.Checkout checkout =
+                new com.chrislaforetsoftware.library.io.checkout.entities.Checkout();
+        checkout.setBookId(book.getId());
+        checkout.setPatronId(Integer.getInteger(patron.getId()));
+        checkout.setCheckedOut(new Date());
+        repository.save(checkout);
+
+        return convertDbCheckout(checkout);
     }
 
     @Override
     public void checkinBook(IBook book) {
-
+        Optional<com.chrislaforetsoftware.library.io.checkout.entities.Checkout> checkout =
+                repository.findByBookId(book.getId());
+        if (!checkout.isPresent()) {
+            throw new IllegalStateException("Book is not checked out");
+        }
+        repository.delete(checkout.get());
     }
 }
