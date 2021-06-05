@@ -1,6 +1,7 @@
 package com.chrislaforetsoftware.library.domains.checkout.handler.commands;
 
 import com.chrislaforetsoftware.library.common.cqs.ICommandHandler;
+import com.chrislaforetsoftware.library.domains.catalog.repository.IBookRepository;
 import com.chrislaforetsoftware.library.domains.checkout.handler.commands.requests.CheckInBookCommand;
 import com.chrislaforetsoftware.library.domains.checkout.events.BookCheckedIn;
 import com.chrislaforetsoftware.library.domains.checkout.repository.ICheckoutRepository;
@@ -23,10 +24,8 @@ public class CheckInBookCommandHandler implements ICommandHandler<CheckInBookCom
 
     @Override
     public Boolean handle(CheckInBookCommand command) {
-
-        if (true) {
-            applicationEventPublisher.publishEvent(new BookCheckedIn(this, command.getCheckout().getBook()));
-        }
-        return null;
+        repository.checkinBook(command.getBook());
+        applicationEventPublisher.publishEvent(new BookCheckedIn(this, command.getBook()));
+        return true;
     }
 }

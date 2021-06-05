@@ -3,7 +3,6 @@ package com.chrislaforetsoftware.library.domains.checkout.handler.commands;
 import com.chrislaforetsoftware.library.common.cqs.ICommandHandler;
 import com.chrislaforetsoftware.library.domains.catalog.entities.IBook;
 import com.chrislaforetsoftware.library.domains.catalog.repository.IBookRepository;
-import com.chrislaforetsoftware.library.domains.catalog.repository.ICatalogRepository;
 import com.chrislaforetsoftware.library.domains.checkout.entities.ICheckout;
 import com.chrislaforetsoftware.library.domains.checkout.handler.commands.requests.CheckOutBookCommand;
 import com.chrislaforetsoftware.library.domains.checkout.repository.ICheckoutRepository;
@@ -30,7 +29,7 @@ public class CheckOutBookCommandHandler implements ICommandHandler<CheckOutBookC
 
     @Override
     public ICheckout handle(CheckOutBookCommand command) {
-        IBook book = bookRepository.getBookById((command.getBookId()))
+        IBook book = bookRepository.getBookById(command.getBookId())
                         .orElseThrow(() -> new IllegalStateException("Cannot find book to check out"));
         IPatron patron = patronRepository.findPatronById(Integer.toString(command.getPatronId()))
                         .orElseThrow(() -> new IllegalStateException("Cannot find patron to check out book"));

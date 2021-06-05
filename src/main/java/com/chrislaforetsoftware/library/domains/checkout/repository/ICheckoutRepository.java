@@ -8,7 +8,6 @@ import com.chrislaforetsoftware.library.domains.patron.entities.IPatron;
 import java.util.List;
 
 public interface ICheckoutRepository {
-
     List<ICheckout> getCheckoutsForTitle(ITitle title);
     List<ICheckout> getCheckoutsForPatron(IPatron patron);
     ICheckout checkoutBook(IBook book, IPatron patron);

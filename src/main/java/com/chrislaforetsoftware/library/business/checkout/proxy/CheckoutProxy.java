@@ -7,8 +7,9 @@ import com.chrislaforetsoftware.library.domains.checkout.entities.ICheckout;
 import com.chrislaforetsoftware.library.domains.checkout.handler.commands.requests.CheckInBookCommand;
 import com.chrislaforetsoftware.library.domains.checkout.handler.commands.requests.CheckOutBookCommand;
 import com.chrislaforetsoftware.library.domains.checkout.handler.queries.requests.GetBooksForPatronQuery;
-import com.chrislaforetsoftware.library.domains.checkout.handler.queries.requests.GetCheckoutForBookQuery;
 import com.chrislaforetsoftware.library.domains.checkout.handler.queries.requests.GetCheckoutsForISBNQuery;
+import com.chrislaforetsoftware.library.domains.patron.entities.IPatron;
+import com.chrislaforetsoftware.library.domains.patron.handler.queries.requests.GetPatronByIdQuery;
 import com.chrislaforetsoftware.library.io.checkout.dto.AddCheckoutRequestDTO;
 import com.chrislaforetsoftware.library.io.checkout.dto.CheckoutResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,48 +17,46 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CheckoutProxy {
 
     private final ICommandHandler<CheckInBookCommand, Boolean> checkInBookCommandHandler;
     private final ICommandHandler<CheckOutBookCommand, ICheckout> checkOutBookCommandHandler;
+    private final IQueryHandler<GetPatronByIdQuery, Optional<IPatron>> getPatronByIdQueryHandler;
     private final IQueryHandler<GetBooksForPatronQuery, List<ICheckout>> getBooksForPatronQueryHandler;
     private final IQueryHandler<GetCheckoutsForISBNQuery, List<ICheckout>> getCheckoutsForISBNQueryHandler;
-    private final IQueryHandler<GetCheckoutForBookQuery, Optional<ICheckout>> getCheckoutForBookQueryHandler;
 
     @Autowired
     public CheckoutProxy(
             ICommandHandler<CheckInBookCommand, Boolean> checkInBookCommandHandler,
             ICommandHandler<CheckOutBookCommand, ICheckout> checkOutBookCommandHandler,
+            IQueryHandler<GetPatronByIdQuery, Optional<IPatron>> getPatronByIdQueryHandler,
             IQueryHandler<GetBooksForPatronQuery, List<ICheckout>> getBooksForPatronQueryHandler,
-            IQueryHandler<GetCheckoutsForISBNQuery, List<ICheckout>> getCheckoutsForISBNQueryHandler,
-            IQueryHandler<GetCheckoutForBookQuery, Optional<ICheckout>> getCheckoutForBookQueryHandler) {
+            IQueryHandler<GetCheckoutsForISBNQuery, List<ICheckout>> getCheckoutsForISBNQueryHandler) {
         this.checkInBookCommandHandler = checkInBookCommandHandler;
         this.checkOutBookCommandHandler = checkOutBookCommandHandler;
+        this.getPatronByIdQueryHandler = getPatronByIdQueryHandler;
         this.getBooksForPatronQueryHandler = getBooksForPatronQueryHandler;
         this.getCheckoutsForISBNQueryHandler = getCheckoutsForISBNQueryHandler;
-        this.getCheckoutForBookQueryHandler = getCheckoutForBookQueryHandler;
     }
 
-    public Optional<CheckoutResponseDTO> getCheckoutForBookById(int id) {
-        Optional<ICheckout> checkout = getCheckoutForBookQueryHandler.handle(new GetCheckoutForBookQuery(id));
-        if (!checkout.isPresent()) {
-            return Optional.empty();
-        }
-        return checkout.map(CheckoutDTOMappers::mapCheckoutToCheckoutResponseDTO);
-    }
-
-    public List<CheckoutResponseDTO> getCheckoutForBooksByISBN(String isbn) {
-return null;
+    public List<CheckoutResponseDTO> getCheckoutsForBooksByISBN(String isbn) {
+        List<ICheckout> checkouts = getCheckoutsForISBNQueryHandler.handle(new GetCheckoutsForISBNQuery(isbn));
+        return checkouts.stream().map(CheckoutDTOMappers::mapCheckoutToCheckoutResponseDTO).collect(Collectors.toList());
     }
 
     public List<CheckoutResponseDTO> getCheckoutsForPatronById(int id) {
-return null;
+        IPatron patron = getPatronByIdQueryHandler.handle(new GetPatronByIdQuery(Integer.toString(id)))
+                            .orElseThrow(() -> new IllegalStateException("Cannot find patron"));
+        List<ICheckout> checkouts = getBooksForPatronQueryHandler.handle(new GetBooksForPatronQuery(patron));
+        return checkouts.stream().map(CheckoutDTOMappers::mapCheckoutToCheckoutResponseDTO).collect(Collectors.toList());
     }
 
     public CheckoutResponseDTO addCheckoutForBook(AddCheckoutRequestDTO request) {
-return null;
+        CheckOutBookCommand command = new CheckOutBookCommand(request.getBookId(), request.getPatronId());
+        return CheckoutDTOMappers.mapCheckoutToCheckoutResponseDTO(checkOutBookCommandHandler.handle(command));
     }
 
     public void deleteCheckout(int id) {
