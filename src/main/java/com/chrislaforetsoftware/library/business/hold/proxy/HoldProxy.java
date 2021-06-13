@@ -22,8 +22,10 @@ public class HoldProxy {
     }
 
     public List<TitleHoldResponseDTO> getHoldsForBooksByISBN(String isbn) {
+        // TODO
     }
 
     public List<TitleHoldResponseDTO> getHoldsForBooksForPatron(int patronId) {
+        // TODO
     }
 }

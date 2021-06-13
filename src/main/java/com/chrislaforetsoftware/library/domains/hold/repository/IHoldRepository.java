@@ -7,7 +7,7 @@ import com.chrislaforetsoftware.library.io.titlehold.entities.TitleHold;
 
 import java.util.List;
 
-public interface IHoldRepository extends CrudRepository<TitleHold, Integer> {
+public interface IHoldRepository {
     List<IHold> getHoldsForPatron(IPatron patron);
     List<IHold> getHoldsForTitle(ITitle title);
     IHold addHold(ITitle title, IPatron patron);
