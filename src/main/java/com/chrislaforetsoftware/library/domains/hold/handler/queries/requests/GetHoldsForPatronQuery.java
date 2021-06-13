@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class GetHoldsForPatronQuery implements IQuery {
-    private IPatron patron;
+    private final IPatron patron;
 
     public GetHoldsForPatronQuery(IPatron patron) {
         this.patron = patron;

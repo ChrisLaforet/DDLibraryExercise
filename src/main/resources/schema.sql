@@ -38,8 +38,8 @@ DROP TABLE IF EXISTS title_hold;
 CREATE TABLE title_hold(
     id INT AUTO_INCREMENT PRIMARY KEY,
     isbn VARCHAR(20) NOT NULL,
-    isClosedEnded BOOLEAN NOT NULL,
-    patronId INT NOT NULL,
+    closed_ended BOOLEAN NOT NULL,
+    patron_id INT NOT NULL,
     notified DATE
 );
 
