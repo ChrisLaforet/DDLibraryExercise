@@ -12,9 +12,8 @@ public class TitleHoldDTOMappers {
     public static TitleHoldResponseDTO mapHoldToTitleHoldResponseDTO(IHold hold) {
         TitleHoldResponseDTO response = new TitleHoldResponseDTO();
         response.setId(hold.getId());
-        response.setBookId(hold.getBook().getId());
-        response.setIsbn(hold.getBook().getTitleInstance().getISBN());
-        response.setTitle(hold.getBook().getTitleInstance().getTitle());
+        response.setTitle(hold.getTitle().getTitle());
+        response.setIsbn(hold.getTitle().getISBN());
         response.setPatronId(hold.getPatron().getId());
         response.setPatronName(hold.getPatron().getName());
         return response;

@@ -56,7 +56,7 @@ public class CheckoutRepository implements ICheckoutRepository {
         com.chrislaforetsoftware.library.io.patron.entities.Patron patron =
                         patronRepository.findById(dbCheckout.getPatronId()).orElseThrow(() -> new IllegalStateException("Cannot locate patron"));
         com.chrislaforetsoftware.library.io.catalog.entities.Book book =
-                        bookRepository.findById(dbCheckout.getBookId()).orElseThrow(() -> new IllegalStateException("Caonnot locate book"));
+                        bookRepository.findById(dbCheckout.getBookId()).orElseThrow(() -> new IllegalStateException("Cannot locate book"));
         com.chrislaforetsoftware.library.io.catalog.entities.Catalog catalog =
                         catalogRepository.findByIsbn(book.getIsbn()).orElseThrow(() -> new IllegalStateException("Cannot locate catalog entry"));
         ITitle title = new Title(catalog.getIsbn(), catalog.getTitle(), catalog.getAuthor());

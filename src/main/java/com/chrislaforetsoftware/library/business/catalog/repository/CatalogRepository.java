@@ -19,13 +19,13 @@ import java.util.stream.Collectors;
 @Repository
 public class CatalogRepository implements ICatalogRepository {
 
-	private final CatalogJpaRepository catalogRepository;
+	private final CatalogJpaRepository repository;
 	private final BookJpaRepository bookRepository;
 
 	@Autowired
-	public CatalogRepository(CatalogJpaRepository catalogRepository,
+	public CatalogRepository(CatalogJpaRepository repository,
 							 BookJpaRepository bookRepository) {
-		this.catalogRepository = catalogRepository;
+		this.repository = repository;
 		this.bookRepository = bookRepository;
 	}
 
@@ -36,7 +36,7 @@ public class CatalogRepository implements ICatalogRepository {
 		dbCatalog.setIsbn(isbn);
 		dbCatalog.setTitle(title);
 		dbCatalog.setAuthor(author);
-		catalogRepository.save(dbCatalog);
+		repository.save(dbCatalog);
 
 		return convertDbCatalog(dbCatalog);
 	}
@@ -48,7 +48,7 @@ public class CatalogRepository implements ICatalogRepository {
 	@Override
 	public Optional<ICatalog> findTitleByISBN(String isbn) {
 		Optional<com.chrislaforetsoftware.library.io.catalog.entities.Catalog> dbCatalog =
-				catalogRepository.findById(isbn);
+				repository.findById(isbn);
 		if (!dbCatalog.isPresent()) {
 			return Optional.empty();
 		}
@@ -77,7 +77,7 @@ public class CatalogRepository implements ICatalogRepository {
 	@Override
 	public IBook addBookToCatalog(String isbn, double price, IBook.AssignedUse assignedUse) {
 		com.chrislaforetsoftware.library.io.catalog.entities.Catalog dbCatalog =
-				catalogRepository.findById(isbn).orElseThrow(() -> new IllegalStateException("ISBN for new book instance cannot be found in catalog"));
+				repository.findById(isbn).orElseThrow(() -> new IllegalStateException("ISBN for new book instance cannot be found in catalog"));
 		Title title = new Title(dbCatalog.getIsbn(), dbCatalog.getTitle(), dbCatalog.getAuthor());
 
 		com.chrislaforetsoftware.library.io.catalog.entities.Book newBook =
@@ -93,7 +93,7 @@ public class CatalogRepository implements ICatalogRepository {
 	@Override
 	public List<IBook> findBooksByISBN(String isbn) {
 		Optional<com.chrislaforetsoftware.library.io.catalog.entities.Catalog> dbCatalog =
-				catalogRepository.findById(isbn);
+				repository.findById(isbn);
 		if (!dbCatalog.isPresent()) {
 			return new ArrayList<>();
 		}

@@ -14,8 +14,6 @@ public class TitleHoldResponseDTO {
     private String isbn;
     private String title;
 
-    private int bookId;
-
     private String patronId;
     private String patronName;
 

@@ -12,14 +12,14 @@ import java.util.List;
 @RequestMapping("/title-hold")
 public class TitleHoldController {
 
-    private HoldProxy proxy;
+    private final HoldProxy proxy;
 
     @Autowired
     public TitleHoldController(HoldProxy proxy) {
         this.proxy = proxy;
     }
 
-    @GetMapping("/for-patron/{id}")
+    @GetMapping("/for-patron/{patronId}")
     public List<TitleHoldResponseDTO> getTitleHoldsForPatronById(@PathVariable int patronId) {
         return proxy.getHoldsForBooksForPatron(patronId);
     }

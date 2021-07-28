@@ -1,8 +1,7 @@
 package com.chrislaforetsoftware.library.domains.hold.entities;
 
-import com.chrislaforetsoftware.library.domains.catalog.entities.IBook;
-import com.chrislaforetsoftware.library.domains.patron.entities.IPatron;
 import com.chrislaforetsoftware.library.domains.catalog.entities.ITitle;
+import com.chrislaforetsoftware.library.domains.patron.entities.IPatron;
 
 public interface IHold {
 
@@ -13,6 +12,6 @@ public interface IHold {
 
     int getId();
     IPatron getPatron();
-    IBook getBook();
+    ITitle getTitle();
     HoldType getHoldType();
 }
