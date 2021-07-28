@@ -71,7 +71,7 @@ public class CatalogRepository implements ICatalogRepository {
 	@Override
 	public List<ICatalog> findAllTitles() {
 		// not implemented yet
-		return null;
+		return new ArrayList<>();
 	}
 
 	@Override

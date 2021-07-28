@@ -1,6 +1,8 @@
 package com.chrislaforetsoftware.library.io.titlehold.controllers;
 
 import com.chrislaforetsoftware.library.business.hold.proxy.HoldProxy;
+import com.chrislaforetsoftware.library.io.catalog.dtos.AddTitleRequestDTO;
+import com.chrislaforetsoftware.library.io.titlehold.dtos.AddHoldRequestDTO;
 import com.chrislaforetsoftware.library.io.titlehold.dtos.TitleHoldResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,4 +31,8 @@ public class TitleHoldController {
         return proxy.getHoldsForBooksByISBN(isbn);
     }
 
+    @PutMapping ("/addHold")
+    public void addTitleHold(@RequestBody AddHoldRequestDTO request) {
+        proxy.addTitleHold(request.getIsbn(), request.getPatronId());
+    }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class GetHoldsForPatronQueryHandler implements IQueryHandler< GetHoldsForPatronQuery, List<IHold>> {
 
-    IHoldRepository repository;
+    private final IHoldRepository repository;
 
     @Autowired
     public GetHoldsForPatronQueryHandler(IHoldRepository repository) {

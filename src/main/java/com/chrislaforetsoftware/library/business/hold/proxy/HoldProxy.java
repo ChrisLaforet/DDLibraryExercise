@@ -1,9 +1,11 @@
 package com.chrislaforetsoftware.library.business.hold.proxy;
 
+import com.chrislaforetsoftware.library.common.cqs.ICommandHandler;
 import com.chrislaforetsoftware.library.common.cqs.IQueryHandler;
 import com.chrislaforetsoftware.library.domains.catalog.entities.ICatalog;
 import com.chrislaforetsoftware.library.domains.catalog.handler.queries.requests.GetTitleByISBNQuery;
 import com.chrislaforetsoftware.library.domains.hold.entities.IHold;
+import com.chrislaforetsoftware.library.domains.hold.handler.commands.requests.AddHoldOnTitleByPatronCommand;
 import com.chrislaforetsoftware.library.domains.hold.handler.queries.requests.GetHoldsForPatronQuery;
 import com.chrislaforetsoftware.library.domains.hold.handler.queries.requests.GetHoldsForTitleQuery;
 import com.chrislaforetsoftware.library.domains.patron.entities.IPatron;
@@ -23,16 +25,19 @@ public class HoldProxy {
     private final IQueryHandler<GetHoldsForTitleQuery, List<IHold>> getHoldsForTitleQueryHandler;
     private final IQueryHandler<GetPatronByIdQuery, Optional<IPatron>> getPatronByIdQueryHandler;
     private final IQueryHandler<GetTitleByISBNQuery, Optional<ICatalog>> getTitleByISBNQueryHandler;
+    private final ICommandHandler<AddHoldOnTitleByPatronCommand, Void> addHoldOnTitleByPatronCommandHandler;
 
     @Autowired
     public HoldProxy(IQueryHandler<GetHoldsForPatronQuery, List<IHold>> getHoldsForPatronQueryHandler,
                      IQueryHandler<GetHoldsForTitleQuery, List<IHold>> getHoldsForTitleQueryHandler,
                      IQueryHandler<GetPatronByIdQuery, Optional<IPatron>> getPatronByIdQueryHandler,
-                     IQueryHandler<GetTitleByISBNQuery, Optional<ICatalog>> getTitleByISBNQueryHandler) {
+                     IQueryHandler<GetTitleByISBNQuery, Optional<ICatalog>> getTitleByISBNQueryHandler,
+                     ICommandHandler<AddHoldOnTitleByPatronCommand, Void> addHoldOnTitleByPatronCommandHandler) {
         this.getHoldsForPatronQueryHandler = getHoldsForPatronQueryHandler;
         this.getHoldsForTitleQueryHandler = getHoldsForTitleQueryHandler;
         this.getPatronByIdQueryHandler = getPatronByIdQueryHandler;
         this.getTitleByISBNQueryHandler = getTitleByISBNQueryHandler;
+        this.addHoldOnTitleByPatronCommandHandler = addHoldOnTitleByPatronCommandHandler;
     }
 
     public List<TitleHoldResponseDTO> getHoldsForBooksByISBN(String isbn) {
@@ -45,6 +50,15 @@ public class HoldProxy {
         IPatron patron = getPatronByIdQueryHandler.handle(new GetPatronByIdQuery(Integer.toString(patronId)))
                             .orElseThrow(() -> new IllegalStateException("Unable to find patron by id"));
         return mapHoldsToResponses(getHoldsForPatronQueryHandler.handle(new GetHoldsForPatronQuery(patron)));
+    }
+
+    public void addTitleHold(String isbn, int patronId) {
+        ICatalog catalog = getTitleByISBNQueryHandler.handle(new GetTitleByISBNQuery(isbn))
+                .orElseThrow(() -> new IllegalStateException("Unable to find catalog title by isbn"));
+        IPatron patron = getPatronByIdQueryHandler.handle(new GetPatronByIdQuery(Integer.toString(patronId)))
+                .orElseThrow(() -> new IllegalStateException("Unable to find patron by id"));
+
+        addHoldOnTitleByPatronCommandHandler.handle(new AddHoldOnTitleByPatronCommand(catalog.getTitleInstance(), patron));
     }
 
     private List<TitleHoldResponseDTO> mapHoldsToResponses(List<IHold> holds) {
